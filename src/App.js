@@ -1,3 +1,7 @@
+import React from 'react';
+
+import SimpleInput from './components/SimpleInput';
+
 export default function App(){
-  return <h1>Hello world</h1>
+  return <SimpleInput />
 }

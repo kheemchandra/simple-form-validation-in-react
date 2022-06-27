@@ -5,6 +5,21 @@
    License: none (public domain)
 */
 
+:root{
+  --primary-w-color: #bbb;
+  --secondary-w-color: white;
+
+  --primary-b-color: #1b0386;
+  --primary-b-color-light: #2203aa;
+  --secondary-b-color: rgb(205, 193, 255);
+
+  --primary-r-color: red;
+  --secondary-r-color: rgb(255, 199, 199);
+
+  --primary-o-color: #FFA500;
+  --secondary-o-color: #fff3dc; 
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -53,3 +68,85 @@ body {
   background-color: #3f3f3f;
 }
 
+#root{
+  padding-top: 50px;
+}
+
+.simple-input{
+  background-color: white;
+  margin: auto;
+  padding: 15px;
+  width: 90vw;
+  max-width: 690px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.form-control{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label{
+  font-weight: bold;
+}
+
+.input{  
+  width: 320px; 
+  outline: none;
+  border: 1px solid;
+  border-color: var(--primary-w-color);
+  background-color: var(--secondary-w-color);
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 5px;
+}
+
+.input:focus{
+  border-color: var(--primary-b-color);
+  background-color: var(--secondary-b-color);
+}
+
+.invalid{
+  border-color: var(--primary-r-color);
+  background-color: var(--secondary-r-color);
+}
+
+.invalid:focus{  
+  border-color: var(--primary-o-color);
+  background-color: var(--secondary-o-color);
+}
+
+.error-text{
+  color: var(--primary-r-color);
+}
+
+.form-actions{ 
+  display: flex;
+  justify-content: flex-end;
+}
+
+button{
+  background-color: var(--primary-b-color);
+  color: white;
+  border: 1px solid var(--primary-b-color);
+  border-radius: 5px;
+  padding: 10px 26px;
+  font-size: 16px; 
+  cursor: pointer;
+}
+button:hover{
+  background-color: var(--primary-b-color-light);
+}
+
+button:disabled,
+button:disabled:hover{
+  background-color: var(--primary-w-color);
+  color: black;
+  border-color: var(--primary-w-color);
+  cursor: not-allowed;
+}
