@@ -85,6 +85,12 @@ body {
 
 }
 
+.group-control{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
 .form-control{
   display: flex;
   flex-direction: column;
@@ -96,7 +102,7 @@ label{
 }
 
 .input{  
-  width: 320px; 
+  max-width: 310px; 
   outline: none;
   border: 1px solid;
   border-color: var(--primary-w-color);
@@ -149,4 +155,10 @@ button:disabled:hover{
   color: black;
   border-color: var(--primary-w-color);
   cursor: not-allowed;
+}
+
+@media (max-width: 600px){
+  .group-control{ 
+    grid-template-columns: 1fr;
+  }
 }

@@ -8,7 +8,16 @@ const SimpleInput = () => {
     changeValueHandler: changeNameHandler,
     blurValueHandler: blurNameHandler,
     reset: resetName,
-  } = useInput(value => value.trim() !== ''); 
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: enteredLastName,
+    isInputTouched: isLastNameInputTouched,
+    isValid: isLastNameValid,
+    changeValueHandler: changeLastNameHandler,
+    blurValueHandler: blurLastNameHandler,
+    reset: resetLastName,
+  } = useInput((value) => value.trim() !== "");
 
   const {
     value: enteredEmail,
@@ -17,40 +26,60 @@ const SimpleInput = () => {
     changeValueHandler: changeEmailHandler,
     blurValueHandler: blurEmailHandler,
     reset: resetEmail,
-  } = useInput(value => value.includes('@')); 
+  } = useInput((value) => value.includes("@"));
 
   const nameInputIsInvalid = !isNameValid && isNameInputTouched;
   const nameInputClasses = nameInputIsInvalid ? "input invalid" : "input";
-  
+
+  const lastNameInputIsInvalid = !isLastNameValid && isLastNameInputTouched;
+  const lastNameInputClasses = lastNameInputIsInvalid ? "input invalid" : "input";
+
   const emailInputIsInvalid = !isEmailValid && isEmailInputTouched;
   const emailInputClasses = emailInputIsInvalid ? "input invalid" : "input";
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (!isNameValid || !isEmailValid) return;
+    if (!isNameValid || !isLastNameValid || !isEmailValid) return;
 
-    resetName(); 
+    resetName();
+    resetLastName();
     resetEmail();
   };
 
-  const isFormValid = isNameValid && isEmailValid;
+  const isFormValid = isNameValid && isLastNameValid && isEmailValid;
 
   return (
     <form onSubmit={submitHandler} className="simple-input">
-      <div className="form-control">
-        <label htmlFor="name">Your Name</label>
-        <input
-          className={nameInputClasses}
-          onChange={changeNameHandler}
-          onBlur={blurNameHandler}
-          id="name"
-          type="text"
-          value={enteredName}
-        />
-        {nameInputIsInvalid && (
-          <p className="error-text">Name must not be empty.</p>
-        )}
+      <div className="group-control">
+        <div className="form-control">
+          <label htmlFor="name">First Name</label>
+          <input
+            className={nameInputClasses}
+            onChange={changeNameHandler}
+            onBlur={blurNameHandler}
+            id="name"
+            type="text"
+            value={enteredName}
+          />
+          {nameInputIsInvalid && (
+            <p className="error-text">First name must not be empty.</p>
+          )}
+        </div>
+        <div className="form-control">
+          <label htmlFor="last-name">Last Name</label>
+          <input
+            className={lastNameInputClasses}
+            onChange={changeLastNameHandler}
+            onBlur={blurLastNameHandler}
+            id="last-name"
+            type="text"
+            value={enteredLastName}
+          />
+          {lastNameInputIsInvalid && (
+            <p className="error-text">Last name must not be empty.</p>
+          )}
+        </div>
       </div>
       <div className="form-control">
         <label htmlFor="email">Your Email</label>
