@@ -3,7 +3,7 @@ import useInput from "../hooks/use-Input";
 const SimpleInput = () => {
   const {
     value: enteredName,
-    isInputTouched: isNameInputTouched,
+    hasError: nameHasError,
     isValid: isNameValid,
     changeValueHandler: changeNameHandler,
     blurValueHandler: blurNameHandler,
@@ -12,7 +12,7 @@ const SimpleInput = () => {
 
   const {
     value: enteredLastName,
-    isInputTouched: isLastNameInputTouched,
+    hasError: lastNameHasError,
     isValid: isLastNameValid,
     changeValueHandler: changeLastNameHandler,
     blurValueHandler: blurLastNameHandler,
@@ -21,33 +21,35 @@ const SimpleInput = () => {
 
   const {
     value: enteredEmail,
-    isInputTouched: isEmailInputTouched,
+    hasError: emailHasError,
     isValid: isEmailValid,
     changeValueHandler: changeEmailHandler,
     blurValueHandler: blurEmailHandler,
     reset: resetEmail,
   } = useInput((value) => value.includes("@"));
 
-  const nameInputIsInvalid = !isNameValid && isNameInputTouched;
-  const nameInputClasses = nameInputIsInvalid ? "input invalid" : "input";
+  const isFormValid = isNameValid && isLastNameValid && isEmailValid;
 
-  const lastNameInputIsInvalid = !isLastNameValid && isLastNameInputTouched;
-  const lastNameInputClasses = lastNameInputIsInvalid ? "input invalid" : "input";
+  const nameInputClasses = nameHasError ? "input invalid" : "input";
 
-  const emailInputIsInvalid = !isEmailValid && isEmailInputTouched;
-  const emailInputClasses = emailInputIsInvalid ? "input invalid" : "input";
+  const lastNameInputClasses = lastNameHasError ? "input invalid" : "input";
+
+  const emailInputClasses = emailHasError ? "input invalid" : "input";
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (!isNameValid || !isLastNameValid || !isEmailValid) return;
+    if (!isFormValid) return;
+
+    console.log('Submitted...');
+    console.log(enteredName, enteredLastName, enteredEmail);
 
     resetName();
     resetLastName();
     resetEmail();
   };
 
-  const isFormValid = isNameValid && isLastNameValid && isEmailValid;
+  
 
   return (
     <form onSubmit={submitHandler} className="simple-input">
@@ -62,7 +64,7 @@ const SimpleInput = () => {
             type="text"
             value={enteredName}
           />
-          {nameInputIsInvalid && (
+          {nameHasError && (
             <p className="error-text">First name must not be empty.</p>
           )}
         </div>
@@ -76,7 +78,7 @@ const SimpleInput = () => {
             type="text"
             value={enteredLastName}
           />
-          {lastNameInputIsInvalid && (
+          {lastNameHasError && (
             <p className="error-text">Last name must not be empty.</p>
           )}
         </div>
@@ -91,7 +93,7 @@ const SimpleInput = () => {
           type="text"
           value={enteredEmail}
         />
-        {emailInputIsInvalid && (
+        {emailHasError && (
           <p className="error-text">Entered email is not valid.</p>
         )}
       </div>
